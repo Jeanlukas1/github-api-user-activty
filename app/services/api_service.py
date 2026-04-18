@@ -10,7 +10,7 @@ def get_repos_info(owner: str):
 
     push_events = [e for e in response if e.get("type") == "PushEvent"]
 
-    for event in push_events:
+    for event in push_events[:3]:
         repo_name = event["repo"]["name"]
         commit_sha = event["payload"]["head"]
 
@@ -20,6 +20,7 @@ def get_repos_info(owner: str):
         commits_quantity = len(commit_data)
         
         print(f"- Pushed {commits_quantity} commits to {repo_name}")
+        return
 
 user_name = "Jeanlukas1"
 get_repos_info(user_name)
