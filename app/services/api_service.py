@@ -5,12 +5,12 @@ import requests
 
 BASE_URL = "https://api.github.com"
 
-def get_repos_info(owner: str):
+def get_last_commit(owner: str):
     response = requests.get(f"{BASE_URL}/users/{owner}/events").json()
 
     push_events = [e for e in response if e.get("type") == "PushEvent"]
 
-    for event in push_events[:3]:
+    for event in push_events:
         repo_name = event["repo"]["name"]
         commit_sha = event["payload"]["head"]
 
@@ -23,4 +23,4 @@ def get_repos_info(owner: str):
         return
 
 user_name = "Jeanlukas1"
-get_repos_info(user_name)
+get_last_commit(user_name)
